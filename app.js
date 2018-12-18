@@ -15,6 +15,10 @@ var fileUpload = require('express-fileupload');
 var session = require('express-session');
 var app = express();
 
+var ip = require('ip');
+ 
+
+
 var cookie = cookieParser(SECRET)
 var store = new session.MemoryStore()
 
@@ -111,7 +115,7 @@ app.use(session({
 }))
 
 
-global.host = window.location.host;
+global.host = "https://nodejs-realtime.herokuapp.com/"
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
