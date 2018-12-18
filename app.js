@@ -111,7 +111,7 @@ app.use(session({
 }))
 
 
-global.host = 'http://localhost:3000';
+global.host = window.location.host;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));
