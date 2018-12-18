@@ -26,7 +26,7 @@ var notify2 = function(data){
 	});
 }
 
-var socket = io('http://localhost:3001');
+var socket = io('https://nodejs-realtime.herokuapp.com:3001');
 
 socket.on('connect', function(){
 	console.log('Conected')	;		
