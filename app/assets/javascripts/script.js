@@ -58,15 +58,30 @@ socket.on('notifyMsg', function (data) {
 var sendMsg = function(id, name, image) {
 	
 	var msg = document.getElementById('msg');
-	socket.emit('toServer', {
-		room: 'room#' + id, 
-		message: msg.value,
-		user: name, 
-		image: image
-	});
+	data = {
+		id: id,
+		message: msg.value
+	}
+
+	$.ajax({
+		type: "POST",
+		url: "/message",
+		data: data,
+		success: function(){
+			socket.emit('toServer', {
+				room: 'room#' + id, 
+				message: msg.value,
+				user: name, 
+				image: image
+			});			
+		}
+	})
+
 };
 
 var getRoom = function() {
 	var msg = document.getElementById('msg');
 	socket.join('toServer', msg.value);
 };
+
+

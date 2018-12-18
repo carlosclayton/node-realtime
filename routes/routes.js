@@ -31,8 +31,10 @@ router.post('/login', [
 	check('password').isLength({ min: 1 }).withMessage('Password is required')
 	], users.validation)
 router.get('/logout', users.logout)
+
 var chats = require('../app/controllers/chats_controller')
 router.get('/chats', chats.index)
 router.get('/chats/:id', chats.show)
+router.post('/chats', chats.new)
 
 module.exports = router

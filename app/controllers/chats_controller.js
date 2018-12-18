@@ -22,5 +22,16 @@ module.exports = {
 			res.render('chats/show', { error: err });
 		});		
 	},
+	new: function(req,res) {
+		User
+		.forge({id: req.params.id})
+		.fetch()
+		.then(function(user) {
+			console.log(user);	    	
+			res.render('chats/show', { user: user });
+		}).catch(function(err) {
+			res.render('chats/show', { error: err });
+		});		
+	},
 
 }
