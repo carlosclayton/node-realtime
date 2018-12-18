@@ -1,0 +1,29 @@
+<html>
+<body>
+ <script src="/js/socket.io.js"></script>
+ <script>
+   var socket = io('http://localhost:3001');
+   socket.on('connect', function(){
+    console.log('connect on Server')
+   });
+   socket.on('toClient', function (msg) {
+     var chat = document.getElementById('chat');
+     chat.innerHTML += msg;
+   });
+
+   socket.on('disconnect', function(){
+    console.log('disconnect on Server')
+   });
+   var enviar = function() {
+     var msg = document.getElementById('msg');
+     console.log(msg.value)
+     socket.emit('toServer', msg.value);
+   };
+ </script>
+ <section>
+   <pre id="chat"></pre>
+   <input type="text" id="msg" placeholder="Sua mensagem">
+   <input type="button" onclick="enviar();" value="Enviar">
+ </section>
+</body>
+</html>

@@ -1,0 +1,56 @@
+
+<%- contentFor('body') %>
+
+<section class="video-container red lighten-1" style="padding-bottom: 60px;">
+	<div class="nav-wrapper">
+		<form action="users" method="POST">
+			<div class="input-field">
+				<input id="search" name="search" type="search" required>
+				<label class="label-icon" for="search"><i class="material-icons white-text">search</i></label>
+				<i class="material-icons">close</i>
+			</div>
+		</form>			
+	</div>
+</section>
+
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<h3 class="header">Users</h3>
+			
+			<ul class="collection">
+				<% users.forEach(function(user) { %>
+
+				<li class="collection-item avatar">
+					<a href="chats/<%= user.attributes.id %>">
+						<img src="upload/<%= user.attributes.image == null ? "user.png" : user.attributes.image %>" alt="" class="circle">
+						<span class="title"><%= user.attributes.name %></span>
+						<p><%= user.attributes.email %></p>					
+
+						<a href="#" class="secondary-content">13/12/2018</a>
+						<span class="new badge">12</span>				
+					</a>
+				</li>				
+				<% }); %>
+
+			</ul>	
+
+		</div>	
+		<ul class="pagination" align=center>
+			<li class="<%= users.pagination.page == 1 ? 'disabled' : 'waves-effect' %>"><a href=chats?page=<%= users.pagination.page - 1 %>>
+				<i class="material-icons">chevron_left</i></a></li>
+				<% for(var i = 1; i < users.pagination.pageCount + 1; i++) { %>
+				<li class="<%= i === users.pagination.page ? 'active' : '' %>"><a href="chats?page=<%= i %>"><%= i %></a></li>
+				<% } %>
+
+				<li class="<%= users.pagination.page >= users.pagination.pageCount ? 'disabled' : 'waves-effect' %>"><a href="chats?page=<%= users.pagination.page + 1%>"><i class="material-icons">chevron_right</i></a></li>
+			</ul>
+
+		</div>
+
+		<div class="fixed-action-btn">
+			<a href="/users/new" class="large btn-floating btn-large red">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+

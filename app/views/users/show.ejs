@@ -1,0 +1,36 @@
+<%- contentFor('body') %>
+<section class="video-container red lighten-1">
+	<div class="container">
+		<div class="row">
+			<br />
+			<div class="col s12 center">
+				<a href="#user"><img class="circle responsive-img" src="<%= global.host %>/upload/<%= global.image %>" width="100px"></a>
+				<h4 class="white-text"><%= user.attributes.name %></h4>
+			</div>
+		</div>			
+	</div>
+
+</section>
+<br /> 
+<div class="container">
+	<div class="row">
+		<div class="col s12">
+			<table>						
+				<tbody>
+					<tr>
+						<td><%= user.attributes.email %></td>
+					</tr>							
+				</tbody>
+			</table>													
+		</div>
+	</div>
+</div>
+
+
+<div class="fixed-action-btn">
+	<a href="/users/<%= user.attributes.id %>/edit" class="btn-floating btn-large red">
+		<i class="large material-icons">mode_edit</i>
+	</a>  
+	
+</div>
+

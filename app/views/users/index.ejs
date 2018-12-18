@@ -1,0 +1,68 @@
+
+<%- contentFor('body') %>
+	<section class="video-container red lighten-1" style="padding-bottom: 60px;">
+		<div class="nav-wrapper">
+			<form action="users" method="POST">
+				<div class="input-field">
+					<input id="search" name="search" type="search" required>
+					<label class="label-icon" for="search"><i class="material-icons white-text">search</i></label>
+					<i class="material-icons">close</i>
+				</div>
+			</form>			
+		</div>
+	</section>
+
+	<div class="container">
+		<div class="row">
+			<div class="col s12">
+				<h3 class="header">Users</h3>
+				<hr />
+				<table class="striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>Name</th>
+							<th>Email</th>
+							<th width="5px">Options</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% users.forEach(function(user) { %>
+						<tr>							
+							<td><%= user.attributes.id %></td>
+							<td><%= user.attributes.name %></td>
+							<td><%= user.attributes.email %></td>
+							<td>
+								<a class=" small" href="/users/<%= user.attributes.id %>">	
+									<i class="tiny material-icons green-text">edit</i>
+								</a>
+
+								<a class="small" href="/users/<%= user.attributes.id %>/remove">	
+									<i class="tiny material-icons red-text">close</i>
+								</a>
+							</td>								
+						</tr>
+						<% }); %>
+					</tbody>
+				</table>
+				<hr />
+
+				<ul class="pagination" align=center>
+					<li class="<%= users.pagination.page == 1 ? 'disabled' : 'waves-effect' %>"><a href=users?page=<%= users.pagination.page - 1 %>>
+						<i class="material-icons">chevron_left</i></a></li>
+						<% for(var i = 1; i < users.pagination.pageCount + 1; i++) { %>
+						<li class="<%= i === users.pagination.page ? 'active' : '' %>"><a href="users?page=<%= i %>"><%= i %></a></li>
+						<% } %>
+
+						<li class="<%= users.pagination.page >= users.pagination.pageCount ? 'disabled' : 'waves-effect' %>"><a href="users?page=<%= users.pagination.page + 1%>"><i class="material-icons">chevron_right</i></a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		<div class="fixed-action-btn">
+			<a href="/users/new" class="large btn-floating btn-large red">
+				<i class="large material-icons">person_add</i>
+			</a>
+		</div>
+
