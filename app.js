@@ -121,9 +121,9 @@ app.use(session({
   store: store
 }))
 
-
-//global.host = "https://nodejs-realtime.herokuapp.com/"
-global.host = "http://localhost:3000"
+//global.host = "https://app-node-express.herokuapp.com/"
+global.host = "https://nodejs-realtime.herokuapp.com/"
+//global.host = "http://localhost:3000"
 
 
 // view engine setup

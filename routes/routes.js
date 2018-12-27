@@ -5,13 +5,14 @@ var { check, validationResult } = require('express-validator/check');
 var authenticated = require('../app/middlewares/authenticated');
 var socketio = require('../app/middlewares/socketio');
 
-var index = require('../app/controllers/index_controller')
-
-router.get('/', index.home)
-
 var users = require('../app/controllers/users_controller')
+var index = require('../app/controllers/index_controller')
+router.get('/', users.login)
+router.get('/new', index.new)
 
 router.get('/users/new', authenticated, users.new)
+
+
 router.post('/users/save', [
 	check('name').isLength({ min: 1 }).withMessage('Name is required'),
 	check('email').isEmail().withMessage("Email isn't correct"),

@@ -1,46 +1,50 @@
 <%- contentFor('body') %>
-
-
-<br />
 <div class="container">
 	<div class="row">
 		<div class="col s12">				
 			<% if(errors) { %>
 			<div class="card-panel deep-orange lighten-4">
 				<i class="small valign material-icons">error_outline</i>
-				<span class="blue-text text-darken-2">					  			    						
-					<% if(errors instanceof Array) { %>										
+				<span class="blue-text text-darken-2">
+					Os seguintes erros foram encontrados: <br />  			    	
 					<% errors.array().forEach(function(erro) { %>
-					Os seguintes erros foram encontrados: <br />
 					<i class="small valign material-icons 
 					">close</i> <%= erro.param %> <br /> 
 					<% }); %>
-					<% } else {%>
-					<%= errors %>
-					<% }  %>
 				</span>
 			</div>
 			<% } %>
-			<h3 class="header">Login</h3>
-			<hr />
+			<div class="col s12">
+				<h3 class="header">New user</h3>
+				<hr />
+			</div>
 
-			<form action="login" method="POST">				      	
+
+
+			<form action="/users/save" method="POST" encType="multipart/form-data">				      	
+				<div class="input-field col s12">
+					<input placeholder="Name" id="name" type="text" name="name" class="validate">
+					<label for="first_name">Name</label>
+				</div>
 
 				<div class="input-field col s12">
 					<input id="email" type="email" name="email" class="validate">
 					<label for="email">Email</label>
 				</div>				      
 
+				<div class="input-field col s12">					
+					<input id="image" type="file" name="image" class="validate">
+				</div>
+
 				<div class="input-field col s12">
 					<input id="password" type="password" name="password" class="validate">
 					<label for="password">Password</label>
 				</div>				      
 				<div class="col s12">
-					<input type="submit" class="waves-effect waves-light btn-small blue" value="Enviar">					
-					<a href="/new">haven't an account?</a>
+					<input type="submit" class="waves-effect waves-light btn-small blue" value="Salvar">
+					<a href="./" class="waves-effect waves-light btn-small red">Cancelar</a>
 				</div>				      
-			</form>	
-
+			</form>				    
 
 		</div>
 	</div>
