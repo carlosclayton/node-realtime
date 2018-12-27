@@ -21,14 +21,22 @@
 			<ul class="collection">
 				<% users.forEach(function(user) { %>
 
+				<% total = 0 %>
+				<% dtmsg = "" %>
+				<% user.relations.chats.forEach(function(chat) { %>
+					<% total++ %>
+					<% dtmsg = chat.attributes.created_at %>
+				<% }); %>
+
 				<li class="collection-item avatar">
-					<a href="chats/<%= user.attributes.id %>">
+					<a href="#" onclick="getRoom(<%= user.attributes.id %>)">
 						<img src="upload/<%= user.attributes.image == null ? "user.png" : user.attributes.image %>" alt="" class="circle">
 						<span class="title"><%= user.attributes.name %></span>
 						<p><%= user.attributes.email %></p>					
-
-						<a href="#" class="secondary-content">13/12/2018</a>
-						<span class="new badge">12</span>				
+						<% if(total > 0 )  { %>
+						<a href="#" class="secondary-content"><%= moment(dtmsg).format("DD/MM/YYYY HH:mm:SS") %></a>						
+						<span class="new badge"><%= total %></span>				
+						<% } %>
 					</a>
 				</li>				
 				<% }); %>

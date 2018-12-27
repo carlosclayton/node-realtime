@@ -2,12 +2,7 @@ var User = require('./../models/User');
 
 
 var { check, validationResult } = require('express-validator/check');
-var socket = require('socket.io-client')('http://localhost:3001');
-
-
-
-
-
+//var socket = require('socket.io-client')('http://localhost:3001');
 
 module.exports = {
 	all: function(req,res) {		

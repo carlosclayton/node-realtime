@@ -26,7 +26,8 @@ var notify2 = function(data){
 	});
 }
 
-var socket = io('https://nodejs-realtime.herokuapp.com:3001');
+//var socket = io('https://nodejs-realtime.herokuapp.com:3001');
+var socket = io('http://localhost:3001');
 
 socket.on('connect', function(){
 	console.log('Conected')	;		
@@ -55,33 +56,36 @@ socket.on('notifyMsg', function (data) {
 	notify2(data);	
 });
 
-var sendMsg = function(id, name, image) {
-	
+var sendMsg = function(room, id, name, image) {
 	var msg = document.getElementById('msg');
+	socket.emit('toServer', {
+		room: 'room#' + room,
+		message: msg.value,
+		user: name, 
+		image: image
+	});		
+		
 	data = {
-		id: id,
-		message: msg.value
+		room: 'room#' + room,
+		message: msg.value,
+		user_id: room	
 	}
 
 	$.ajax({
 		type: "POST",
-		url: "/message",
+		url: "/chats",
 		data: data,
 		success: function(){
-			socket.emit('toServer', {
-				room: 'room#' + id, 
-				message: msg.value,
-				user: name, 
-				image: image
-			});			
 		}
 	})
+	
 
 };
 
-var getRoom = function() {
-	var msg = document.getElementById('msg');
-	socket.join('toServer', msg.value);
+
+var getRoom = function(id) {	
+	socket.emit('getRoom', 'room#' + id)
+	window.location.href = "/chats/" + id
 };
 
 

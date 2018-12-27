@@ -13,6 +13,11 @@ var expressLayouts = require('express-ejs-layouts');
 var routes = require('./routes/routes');
 var fileUpload = require('express-fileupload');
 var session = require('express-session');
+
+var moment = require('moment');
+moment.locale('pt-BR');
+global.moment = moment
+
 var app = express();
 
 var ip = require('ip');
@@ -36,6 +41,7 @@ app.use(function(req, res, next) {
 io.sockets.on('connection', function (client) {
   // Recuperando uma sessão Express.
   var session = client.handshake.session;
+
   
   client.on('login', function(){
     console.log('Login relizado com sucesso');    
@@ -49,15 +55,16 @@ io.sockets.on('connection', function (client) {
   });  
 
   client.on('getRoom', function(data){
-    console.log('Sala: ', data)
+    console.log('Joing room: ', data)
+    client.join(data.room)
   })
 
 
   //console.log(session);
   client.on('toServer', function (data) {
     console.log(data)
-   message = '<div class="barra"><span class="time-left">' + data.message +'</span><span class="time-right">11:00</span></div>';
-   message2 = '<div class="barra darker"><span class="time-left">11:00</span><span class="time-right">' + data.message +'</span></div>';
+   message = '<div class="barra"><span class="time-left">' + data.message +'</span><span class="time-right">'+ moment().format('YYYY-MM-DD HH:mm:SS') +'</span></div>';
+   message2 = '<div class="barra darker"><span class="time-left">'+ moment().format('YYYY-MM-DD HH:mm:SS') +'</span><span class="time-right">' + data.message +'</span></div>';
    client.join(data.room)
    
        
@@ -115,7 +122,9 @@ app.use(session({
 }))
 
 
-global.host = "https://nodejs-realtime.herokuapp.com/"
+//global.host = "https://nodejs-realtime.herokuapp.com/"
+global.host = "http://localhost:3000"
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'app/views'));

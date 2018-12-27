@@ -33,8 +33,8 @@ router.post('/login', [
 router.get('/logout', users.logout)
 
 var chats = require('../app/controllers/chats_controller')
-router.get('/chats', chats.index)
-router.get('/chats/:id', chats.show)
-router.post('/chats', chats.new)
+router.get('/chats', authenticated, chats.index)
+router.get('/chats/:id', authenticated ,chats.show)
+router.post('/chats', authenticated, chats.save)
 
 module.exports = router
